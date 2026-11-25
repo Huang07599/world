@@ -17,5 +17,6 @@
   "smallworld.command.not_inside": "你不在任何领域里",
   "smallworld.command.rebuilt": "领域竞技场已重建",
   "smallworld.command.no_domain": "当前没有展开中的领域",
+  "smallworld.command.status_all": "当前展开中的领域：%s 个",
   "smallworld.command.status": "领域进行中：%s 名玩家，剩余 %s 秒"
 }

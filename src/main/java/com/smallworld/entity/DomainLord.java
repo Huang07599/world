@@ -3,13 +3,9 @@ package com.smallworld.entity;
 import com.smallworld.SWRegistries;
 import com.smallworld.domain.DomainManager;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -43,8 +39,6 @@ public class DomainLord extends Monster {
     /** 领域冷却（30 秒）。 */
     public static final int DOMAIN_COOLDOWN = 20 * 30;
 
-    private final ServerBossEvent bossBar;
-
     private int chargeTicks;
     private int cooldown = 20 * 8;
     private boolean domainOpen;
@@ -52,9 +46,6 @@ public class DomainLord extends Monster {
     public DomainLord(EntityType<? extends DomainLord> type, Level level) {
         super(type, level);
         this.xpReward = 50;
-        this.bossBar = new ServerBossEvent(this.getDisplayName(),
-                BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_10);
-        this.bossBar.setDarkenScreen(true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -91,7 +82,6 @@ public class DomainLord extends Monster {
         if (DomainManager.isOwnerInDomain(this.getUUID())) {
             this.chargeTicks = 0;
             this.cooldown = DOMAIN_COOLDOWN;
-            this.bossBar.setProgress(1.0F);
             return;
         }
 
@@ -171,24 +161,6 @@ public class DomainLord extends Monster {
     @Override
     public boolean removeWhenFarAway(double distanceToClosestPlayer) {
         return false;
-    }
-
-    @Override
-    public void startSeenByPlayer(ServerPlayer player) {
-        super.startSeenByPlayer(player);
-        this.bossBar.addPlayer(player);
-    }
-
-    @Override
-    public void stopSeenByPlayer(ServerPlayer player) {
-        super.stopSeenByPlayer(player);
-        this.bossBar.removePlayer(player);
-    }
-
-    @Override
-    public void setCustomName(Component name) {
-        super.setCustomName(name);
-        this.bossBar.setName(this.getDisplayName());
     }
 
     @Override

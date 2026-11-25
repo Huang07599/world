@@ -63,20 +63,29 @@ public final class SWCommand {
                                 ctx.getSource().sendFailure(Component.literal("dimension smallworld:domain not found"));
                                 return 0;
                             }
-                            DomainArena.ensureBuilt(domain, DomainManager.ARENA_CENTER);
+                            java.util.List<DomainManager.Session> sessions = DomainManager.sessions();
+                            if (sessions.isEmpty()) {
+                                DomainArena.ensureBuilt(domain,
+                                        new BlockPos(0, DomainArena.surfaceY(domain, 0, 0), 0));
+                            } else {
+                                for (DomainManager.Session session : sessions) {
+                                    DomainArena.ensureBuilt(domain, session.center);
+                                }
+                            }
                             ctx.getSource().sendSuccess(() -> Component.translatable("smallworld.command.rebuilt"), true);
                             return 1;
                         }))
                 .then(Commands.literal("status")
                         .executes(ctx -> {
-                            DomainManager.Session session = DomainManager.activeSession();
-                            if (session == null) {
-                                ctx.getSource().sendSuccess(() -> Component.translatable("smallworld.command.no_domain"), false);
-                                return 0;
+                            int count = DomainManager.sessionCount();
+                            ctx.getSource().sendSuccess(() -> Component.translatable(
+                                    "smallworld.command.status_all", count), false);
+                            for (DomainManager.Session session : DomainManager.sessions()) {
+                                ctx.getSource().sendSuccess(() -> Component.translatable(
+                                        "smallworld.command.status", session.players().size(),
+                                        session.secondsLeft()), false);
                             }
-                            ctx.getSource().sendSuccess(() -> Component.translatable("smallworld.command.status",
-                                    session.players().size(), session.secondsLeft()), false);
-                            return 1;
+                            return count;
                         })));
     }
 }

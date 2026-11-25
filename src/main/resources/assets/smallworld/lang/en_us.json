@@ -17,5 +17,6 @@
   "smallworld.command.not_inside": "You are not inside any domain",
   "smallworld.command.rebuilt": "Domain arena rebuilt",
   "smallworld.command.no_domain": "No domain is currently open",
+  "smallworld.command.status_all": "Domains currently open: %s",
   "smallworld.command.status": "Domain active: %s players, %s s left"
 }

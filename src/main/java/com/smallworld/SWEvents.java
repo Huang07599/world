@@ -58,6 +58,6 @@ public final class SWEvents {
 
     @SubscribeEvent
     public static void onServerStopped(ServerStoppedEvent event) {
-        DomainManager.closeCurrent(false);
+        DomainManager.closeAll(false);
     }
 }
