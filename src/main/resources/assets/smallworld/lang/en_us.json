@@ -1,0 +1,21 @@
+{
+  "itemGroup.smallworld": "Small World",
+  "entity.smallworld.domain_lord": "Domain Lord",
+  "item.smallworld.domain_core": "Domain Core",
+  "item.smallworld.domain_core.desc": "Right click to tear open a small world of your own (30s)",
+  "item.smallworld.domain_lord_spawn_egg": "Domain Lord Spawn Egg",
+  "smallworld.domain.entered": "You were dragged into the Domain Lord's small world",
+  "smallworld.domain.ended": "The domain fades and you are sent back",
+  "smallworld.domain.collapsed": "The Domain Lord fell, the small world collapsed",
+  "smallworld.domain.left": "You tore through the domain boundary",
+  "smallworld.domain.returned": "Returned to your previous position",
+  "smallworld.domain.busy": "Another domain is already open",
+  "smallworld.domain.time_left": "Domain collapses in %s s",
+  "smallworld.command.summoned": "Domain Lord summoned",
+  "smallworld.command.summon_failed": "Summon failed",
+  "smallworld.command.already_inside": "You are already inside a domain",
+  "smallworld.command.not_inside": "You are not inside any domain",
+  "smallworld.command.rebuilt": "Domain arena rebuilt",
+  "smallworld.command.no_domain": "No domain is currently open",
+  "smallworld.command.status": "Domain active: %s players, %s s left"
+}

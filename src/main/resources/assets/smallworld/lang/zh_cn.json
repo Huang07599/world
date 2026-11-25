@@ -1,0 +1,21 @@
+{
+  "itemGroup.smallworld": "小世界 Small World",
+  "entity.smallworld.domain_lord": "领域之主",
+  "item.smallworld.domain_core": "领域核",
+  "item.smallworld.domain_core.desc": "右键撕开一个属于你的小世界，30 秒后自动返回",
+  "item.smallworld.domain_lord_spawn_egg": "领域之主刷怪蛋",
+  "smallworld.domain.entered": "你被卷入了领域之主的「小世界」",
+  "smallworld.domain.ended": "领域消散，你被送回了原处",
+  "smallworld.domain.collapsed": "领域之主陨落，小世界崩塌",
+  "smallworld.domain.left": "你撕开了领域边界，回到原处",
+  "smallworld.domain.returned": "已返回原处",
+  "smallworld.domain.busy": "已经有领域处于展开状态",
+  "smallworld.domain.time_left": "领域剩余 %s 秒",
+  "smallworld.command.summoned": "已召唤领域之主",
+  "smallworld.command.summon_failed": "召唤失败",
+  "smallworld.command.already_inside": "你已经在领域里了",
+  "smallworld.command.not_inside": "你不在任何领域里",
+  "smallworld.command.rebuilt": "领域竞技场已重建",
+  "smallworld.command.no_domain": "当前没有展开中的领域",
+  "smallworld.command.status": "领域进行中：%s 名玩家，剩余 %s 秒"
+}

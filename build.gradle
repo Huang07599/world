@@ -1,0 +1,70 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+version = mod_version
+group = 'com.smallworld'
+base {
+    archivesName = mod_id
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+def cnMirror = (findProperty('cnMirror') ?: 'false').toString().toBoolean()
+
+repositories {
+    if (cnMirror) {
+        maven { name = 'NeoForgedMirror'; url = 'https://bmclapi2.bangbang93.com/maven' }
+    }
+    maven { name = 'MojangLibraries'; url = 'https://libraries.minecraft.net' }
+    mavenCentral()
+}
+
+neoForge {
+    version = project.neo_version
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+    }
+
+    mods {
+        smallworld {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+processResources {
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand(project.properties)
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'     : mod_id,
+            'Specification-Vendor'    : mod_authors,
+            'Specification-Version'   : '1',
+            'Implementation-Title'    : project.name,
+            'Implementation-Version'  : project.jar.archiveVersion,
+            'Implementation-Vendor'   : mod_authors
+        ])
+    }
+}

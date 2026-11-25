@@ -1,0 +1,15 @@
+// 国内网络构建时加 -PcnMirror=true，让 NeoForge / Minecraft 构件走 BMCLAPI 镜像。
+// CI（GitHub Actions 海外 runner）保持默认 false，直连官方仓库最稳。
+pluginManagement {
+    def cnMirror = (gradle.startParameter.projectProperties['cnMirror'] ?: 'false').toBoolean()
+    repositories {
+        maven { name = 'GradlePluginPortal'; url = 'https://plugins.gradle.org/m2/' }
+        gradlePluginPortal()
+        mavenCentral()
+        if (cnMirror) {
+            maven { name = 'NeoForgedMirror'; url = 'https://bmclapi2.bangbang93.com/maven' }
+        }
+    }
+}
+
+rootProject.name = 'smallworld'
