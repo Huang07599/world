@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -334,8 +335,8 @@ public final class DomainManager {
     /**
      * 跨维度传送的统一入口。
      * 1.21.1 里玩家用 {@code teleportTo(ServerLevel, x, y, z, Set<Relative>, yRot, xRot)}，
-     * 其它实体用 {@code changeDimension(ServerLevel)}——后者只把我们送到目标维度的
-     * 默认落点，所以还要手动摆到竞技场坐标上。
+     * 其它实体走 {@code changeDimension(DimensionTransition)}——注意这个类在 1.21.2 才改名叫
+     * TeleportTransition，1.21.1 必须用 DimensionTransition。
      */
     public static void teleport(Entity entity, ServerLevel target, Vec3 pos, float yRot, float xRot) {
         if (entity.level() == target) {
@@ -345,7 +346,8 @@ public final class DomainManager {
         } else if (entity instanceof ServerPlayer player) {
             player.teleportTo(target, pos.x, pos.y, pos.z, Set.of(), yRot, xRot);
         } else {
-            Entity moved = entity.changeDimension(target);
+            Entity moved = entity.changeDimension(new DimensionTransition(target, pos, Vec3.ZERO,
+                    yRot, xRot, DimensionTransition.DO_NOTHING));
             Entity result = moved != null ? moved : entity;
             result.setPos(pos.x, pos.y, pos.z);
             result.setYRot(yRot);
