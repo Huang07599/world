@@ -9,9 +9,12 @@
 
 ![](https://img.shields.io/badge/MC-1.21.1-3C8527) ![](https://img.shields.io/badge/NeoForge-21.1.x-EA8C1E)
 
-> **状态**：源码完整（10 个类 + 维度数据包 + 贴图 + 语言文件），已通过语法校验与 Gradle 脚本校验；
-> **本地环境无法完成首次编译**（官方源被墙 + 该构件无国内镜像，详见「依赖仓库说明」）。
-> 已配好 GitHub Actions 流水线，推到 GitHub 即可自动产出 jar。
+> **状态**：已通过 GitHub Actions 完成编译，产出 `smallworld-1.0.0.jar`（12 个类 + 维度数据包 + 贴图 + 中英文语言文件）。
+> 本地环境因官方源被墙无法编译（详见「依赖仓库说明」），所以走云端构建。
+>
+> **安装**：把 jar 丢进 `.minecraft/mods`，客户端与服务端都要装。需要 NeoForge 21.1.x + MC 1.21.1。
+>
+> 进游戏后用 `/smallworld summon` 召唤领域之主，靠近到 14 格内它会展开领域把你拉进去。
 
 ---
 
