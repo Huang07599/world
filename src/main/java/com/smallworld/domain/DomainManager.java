@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -332,7 +331,12 @@ public final class DomainManager {
         return null;
     }
 
-    /** 跨维度传送的统一入口（玩家用 teleportTo，其它实体用 TeleportTransition）。 */
+    /**
+     * 跨维度传送的统一入口。
+     * 1.21.1 里玩家用 {@code teleportTo(ServerLevel, x, y, z, Set<Relative>, yRot, xRot)}，
+     * 其它实体用 {@code changeDimension(ServerLevel)}——后者只把我们送到目标维度的
+     * 默认落点，所以还要手动摆到竞技场坐标上。
+     */
     public static void teleport(Entity entity, ServerLevel target, Vec3 pos, float yRot, float xRot) {
         if (entity.level() == target) {
             entity.teleportTo(pos.x, pos.y, pos.z);
@@ -341,8 +345,11 @@ public final class DomainManager {
         } else if (entity instanceof ServerPlayer player) {
             player.teleportTo(target, pos.x, pos.y, pos.z, Set.of(), yRot, xRot);
         } else {
-            entity.changeDimension(target, new TeleportTransition(target, pos, Vec3.ZERO, yRot, xRot,
-                    TeleportTransition.DO_NOTHING));
+            Entity moved = entity.changeDimension(target);
+            Entity result = moved != null ? moved : entity;
+            result.setPos(pos.x, pos.y, pos.z);
+            result.setYRot(yRot);
+            result.setXRot(xRot);
         }
         entity.setDeltaMovement(Vec3.ZERO);
         entity.resetFallDistance();
