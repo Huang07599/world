@@ -2,28 +2,26 @@ package com.smallworld;
 
 import com.smallworld.command.SWCommand;
 import com.smallworld.domain.DomainManager;
-import com.smallworld.entity.DomainLord;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 import java.util.Set;
 
-/** 所有 NeoForge 总线事件。 */
+/**
+ * 所有挂在「游戏总线」（{@code NeoForge.EVENT_BUS}）上的事件。
+ *
+ * <p>注意：注册期的 mod bus 事件（如 {@code EntityAttributeCreationEvent}）**不能**放在这里，
+ * 见 {@link SWModEvents}。</p>
+ */
 public final class SWEvents {
 
     private SWEvents() {
-    }
-
-    @SubscribeEvent
-    public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
-        event.put(SWRegistries.DOMAIN_LORD.get(), DomainLord.createAttributes().build());
     }
 
     @SubscribeEvent

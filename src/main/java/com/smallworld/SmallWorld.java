@@ -21,7 +21,9 @@ public class SmallWorld {
 
     public SmallWorld(IEventBus modEventBus) {
         SWRegistries.register(modEventBus);
-        modEventBus.addListener(SWEvents::onEntityAttributeCreation);
+        // mod bus：注册期的属性/注册事件
+        modEventBus.addListener(SWModEvents::onEntityAttributeCreation);
+        // 游戏 bus：tick、命令、玩家登出等
         NeoForge.EVENT_BUS.register(SWEvents.class);
         LOGGER.info("[SmallWorld] 小世界领域 loaded, domain dimension = {}", "smallworld:domain");
     }
